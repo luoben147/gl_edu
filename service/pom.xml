@@ -20,11 +20,11 @@
 
     <dependencies>
 
-        <!--<dependency>-->
-            <!--<groupId>com.atguigu</groupId>-->
-            <!--<artifactId>service_base</artifactId>-->
-            <!--<version>0.0.1-SNAPSHOT</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.luoben</groupId>
+            <artifactId>service_base</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
         <!--<dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -69,10 +69,6 @@
         <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity-engine-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-generator</artifactId>
         </dependency>
 
         <!--swagger-->
