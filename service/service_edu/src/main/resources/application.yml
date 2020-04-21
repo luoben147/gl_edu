@@ -16,9 +16,11 @@ spring:
 mybatis-plus:
   mapper-locations:
   - classpath:mapper/*Mapper.xml
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  #控制台打印完整带参数SQL语句
+  #configuration:
+  #  log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  #控制台打印完整带参数SQL语句
 
-
-
+#设置日志级别
+#logging:
+#  level:
+#    root : info
 
