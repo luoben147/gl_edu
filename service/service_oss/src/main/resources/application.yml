@@ -1,0 +1,19 @@
+server:
+  port: 8002
+spring:
+  application:
+    name: service-oss
+  profiles:
+    active: dev
+
+
+#阿里云 OSS
+#不同的服务器，地址不同
+aliyun:
+  oss:
+    file:
+      endpoint: oss-cn-beijing.aliyuncs.com
+      keyid: LTAI4G8LPFWcWYH7mBnZx1k2
+      keysecret: xuF4hAyNiIq6ZX9KRDZkv663p2YcGL
+      #bucket可以在控制台创建，也可以使用java代码创建
+      bucketname: gl-edu

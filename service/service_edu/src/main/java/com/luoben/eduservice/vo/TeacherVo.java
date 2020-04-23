@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-public class TeacherQuery {
+public class TeacherVo {
 
     @ApiModelProperty(value = "教师名称,模糊查询")
     private String name;
@@ -17,4 +17,5 @@ public class TeacherQuery {
 
     @ApiModelProperty(value = "查询结束时间", example = "2019-12-01 10:10:10")
     private String end;
+
 }

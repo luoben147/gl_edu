@@ -7,7 +7,7 @@ import com.luoben.commonutils.R;
 import com.luoben.commonutils.ResultCode;
 import com.luoben.eduservice.entity.EduTeacher;
 import com.luoben.eduservice.service.EduTeacherService;
-import com.luoben.eduservice.vo.TeacherQuery;
+import com.luoben.eduservice.vo.TeacherVo;
 import com.luoben.servicebase.exceptionhandler.MyException;
 import io.swagger.annotations.*;
 import org.apache.commons.lang3.StringUtils;
@@ -29,6 +29,7 @@ import java.util.Map;
 @Api(description = "讲师管理")
 @RestController
 @RequestMapping("/eduservice/edu-teacher")
+@CrossOrigin
 public class EduTeacherController {
 
     @Autowired
@@ -100,23 +101,25 @@ public class EduTeacherController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "current", value = "当前页", defaultValue = "1", dataType = "Long", paramType = "query"),
             @ApiImplicitParam(name = "limit", value = "每页大小", defaultValue = "5", dataType = "Long", paramType = "query"),
-            @ApiImplicitParam(name = "teacherQuery", value = "查询条件", dataType = "TeacherQuery", paramType = "body")
+            @ApiImplicitParam(name = "teacherQuery", value = "查询条件", dataType = "TeacherVo", paramType = "body")
 
     })
     @PostMapping("pageTeacherCondition")
-    public R pageTeacherCondition(@RequestParam Long current, @RequestParam Long limit,
-                                  @RequestBody(required = false) TeacherQuery teacherQuery) {
+    public R pageTeacherCondition(@RequestParam("page") Long pageNum,
+                                  @RequestParam("limit") Long limit,
+                                  @RequestBody() TeacherVo teacherVo) {
 
-        Page<EduTeacher> page = new Page<>(current, limit);
+        Page<EduTeacher> page = new Page<>(pageNum, limit);
         //构建条件
         QueryWrapper<EduTeacher> wrapper = new QueryWrapper<>();
 
         // 多条件组合查询
         // mybatis学过 动态sql
-        String name = teacherQuery.getName();
-        Integer level = teacherQuery.getLevel();
-        String begin = teacherQuery.getBegin();
-        String end = teacherQuery.getEnd();
+        String name = teacherVo.getName();
+
+        Integer level = teacherVo.getLevel();
+        String begin = teacherVo.getBegin();
+        String end = teacherVo.getEnd();
         //判断条件值是否为空，如果不为空拼接条件
         if (!StringUtils.isEmpty(name)) {
             //构建条件
@@ -131,6 +134,9 @@ public class EduTeacherController {
         if (!StringUtils.isEmpty(end)) {
             wrapper.le("gmt_create", end);
         }
+
+        //排序
+        wrapper.orderByDesc("gmt_create");
 
         //调用方法实现条件查询分页
         teacherService.page(page, wrapper);
