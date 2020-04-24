@@ -2,17 +2,16 @@ package com.luoben.eduservice.controller;
 
 
 import com.luoben.commonutils.R;
+import com.luoben.eduservice.vo.OneSubject;
 import com.luoben.eduservice.service.EduSubjectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * <p>
@@ -36,8 +35,8 @@ public class EduSubjectController {
      * 获取上传过来的Excel文件，把文件内容读出来
      */
     @ApiOperation(value = "excel导入课程", notes = "excel导入课程(一级课程，二级课程)")
-    @PostMapping("addSubject")
-    public R addSubject(
+    @PostMapping("import")
+    public R importSubject(
             @ApiParam(name = "file",value = "课程分类excel文件",required = true)
             MultipartFile file){
         try {
@@ -48,6 +47,18 @@ public class EduSubjectController {
             return R.error().message(e.getMessage());
         }
     }
+
+    /**
+     * 课程分类列表（树形结构）
+     * @return
+     */
+    @ApiOperation(value = "嵌套课程分类列表")
+    @GetMapping("getAllSubject")
+    public R getAllSubject(){
+        List<OneSubject> list= subjectService.getAllOneAndTowSubject();
+        return R.ok().data("list",list);
+    }
+
 
 }
 

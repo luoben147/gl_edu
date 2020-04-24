@@ -4,11 +4,11 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.luoben.eduservice.entity.EduSubject;
-import com.luoben.eduservice.entity.excel.SubjectData;
+import com.luoben.eduservice.vo.ExcelSubjectDataVo;
 import com.luoben.eduservice.service.EduSubjectService;
 import com.luoben.servicebase.exceptionhandler.MyException;
 
-public class SubjectExcelListener extends AnalysisEventListener<SubjectData> {
+public class SubjectExcelListener extends AnalysisEventListener<ExcelSubjectDataVo> {
 
 
     public EduSubjectService subjectService;
@@ -21,7 +21,7 @@ public class SubjectExcelListener extends AnalysisEventListener<SubjectData> {
 
     //读取excel内容，一行一行读取
     @Override
-    public void invoke(SubjectData subjectData, AnalysisContext analysisContext) {
+    public void invoke(ExcelSubjectDataVo subjectData, AnalysisContext analysisContext) {
         if(subjectData==null){
             throw new MyException(20001,"文件数据为空");
         }
