@@ -1,5 +1,6 @@
 package com.luoben.eduservice.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.luoben.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.luoben.eduservice.vo.CourseInfoVo;
@@ -46,4 +47,18 @@ public interface EduCourseService extends IService<EduCourse> {
      * @param id
      */
     Boolean publishCourseById(String id);
+
+    /**
+     * 分页课程列表
+     * @param pageParam
+     * @param courseQuery
+     */
+    void pageQuery(Page<EduCourse> pageParam, EduCourse courseQuery);
+
+    /**
+     * 删除课程
+     * @param id
+     * @return
+     */
+    boolean removeCourseById(String id);
 }

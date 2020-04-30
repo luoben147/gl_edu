@@ -4,11 +4,9 @@ package com.luoben.eduservice.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.luoben.commonutils.R;
-import com.luoben.commonutils.ResultCode;
 import com.luoben.eduservice.entity.EduTeacher;
 import com.luoben.eduservice.service.EduTeacherService;
 import com.luoben.eduservice.vo.TeacherVo;
-import com.luoben.servicebase.exceptionhandler.MyException;
 import io.swagger.annotations.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,12 +74,6 @@ public class EduTeacherController {
 
         Page<EduTeacher> page = new Page<>(current, limit);
         teacherService.page(page, null);
-
-        try {
-            int a=2/0;
-        } catch (Exception e) {
-           throw new MyException(ResultCode.ERROR,"执行了自定义异常处理..");
-        }
 
         long total = page.getTotal();//总记录数
         List<EduTeacher> records = page.getRecords(); //数据list

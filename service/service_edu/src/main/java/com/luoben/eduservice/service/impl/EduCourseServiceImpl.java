@@ -1,16 +1,22 @@
 package com.luoben.eduservice.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.luoben.eduservice.entity.EduCourse;
 import com.luoben.eduservice.entity.EduCourseDescription;
 import com.luoben.eduservice.mapper.EduCourseMapper;
+import com.luoben.eduservice.service.EduChapterService;
 import com.luoben.eduservice.service.EduCourseService;
+import com.luoben.eduservice.service.EduVideoService;
 import com.luoben.eduservice.vo.CourseInfoVo;
 import com.luoben.eduservice.vo.CoursePublishVo;
 import com.luoben.servicebase.exceptionhandler.MyException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 /**
  * <p>
@@ -25,8 +31,13 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     //课程描述
     @Autowired
-    EduCourseDescriptionServiceImpl courseDescriptionService;
+    private  EduCourseDescriptionServiceImpl courseDescriptionService;
 
+    @Autowired
+    private EduVideoService videoService;
+
+    @Autowired
+    private EduChapterService chapterService;
 
     /**
      * 添加课程基本信息
@@ -118,6 +129,55 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         course.setId(id);
         course.setStatus(EduCourse.COURSE_NORMAL);
         Integer count = baseMapper.updateById(course);
+        return null != count && count > 0;
+    }
+
+    /**
+     * 分页课程列表
+     * @param pageParam
+     * @param courseQuery
+     */
+    @Override
+    public void pageQuery(Page<EduCourse> pageParam, EduCourse courseQuery) {
+        QueryWrapper wrapper=new QueryWrapper();
+
+        if (courseQuery == null){
+            baseMapper.selectPage(pageParam, wrapper);
+            return;
+        }
+
+        String title = courseQuery.getTitle();
+        String status = courseQuery.getStatus();
+
+        if(!StringUtils.isEmpty(title)){
+            wrapper.like("title",title);
+        }
+        if(!StringUtils.isEmpty(status)){
+            wrapper.eq("status",status);
+        }
+
+        baseMapper.selectPage(pageParam, wrapper);
+
+    }
+
+    /**
+     * 删除课程
+     *   删除章节，小节，视频
+     * @param id
+     * @return
+     */
+    @Transactional
+    @Override
+    public boolean removeCourseById(String id) {
+        //删除小节
+        videoService.removeVideoByCourseId(id);
+        //删除章节
+        chapterService.removeChapterByCourseId(id);
+        //删除描述
+        courseDescriptionService.removeById(id);
+        //删除课程
+        Integer count = baseMapper.deleteById(id);
+
         return null != count && count > 0;
     }
 }
