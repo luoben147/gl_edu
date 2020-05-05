@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 
 @Api(description="阿里云视频点播微服务")
 @CrossOrigin //跨域
 @RestController
-@RequestMapping("eduvod/video")
+@RequestMapping("/eduvod/video")
 public class VodController {
 
     @Autowired
@@ -36,10 +38,23 @@ public class VodController {
      */
     @ApiOperation(value = "根据ID删除阿里云视频")
     @DeleteMapping("{videoId}")
-    public R removeVideo(
+    public R removeAliyVideo(
             @ApiParam(name = "videoId", value = "云端视频id", required = true)
             @PathVariable String videoId){
         vodService.removeVideo(videoId);
+        return R.ok().message("视频删除成功");
+    }
+
+    /**
+     * 删除多个阿里云视频
+     */
+    @ApiOperation(value = "批量删除视频")
+    @DeleteMapping("delete-batch")
+    public R deleteBatch(
+            @ApiParam(name = "videoIdList", value = "云端视频id", required = true)
+            @RequestParam("videoIdList") List<String> videoIdList){
+
+        vodService.removeVideoList(videoIdList);
         return R.ok().message("视频删除成功");
     }
 }

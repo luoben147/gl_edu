@@ -11,11 +11,15 @@ spring:
       max-file-size: 1024MB
       # 最大总上传的数据大小(默认10MB)
       max-request-size: 1024MB
-
+  cloud:
+    nacos:
+      discovery:
+        #nacos注册中心服务地址
+        server-addr: 127.0.0.1:8848
 
 aliyun:
   vod:
     file:
-       keyid: your keyId
-       keysecret: your keysecret
+       keyid: LTAI4G8LPFWcWYH7mBnZx1k2
+       keysecret: xuF4hAyNiIq6ZX9KRDZkv663p2YcGL
 

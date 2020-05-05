@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -79,6 +80,28 @@ public class VodServiceImpl implements VodService {
             System.out.print("RequestId = " + response.getRequestId() + "\n");
         } catch (ClientException e) {
             e.printStackTrace();
+            throw new MyException(20001, "云端视频删除失败");
+        }
+    }
+
+    /**
+     * 批量删除视频
+     * @param videoIdList
+     */
+    @Override
+    public void removeVideoList(List videoIdList) {
+        try {
+            //初始化
+            DefaultAcsClient client = InitVodClient.initVodClient(VodPropertiesUtils.ACCESS_KEY_ID, VodPropertiesUtils.ACCESS_KEY_SECRET);
+            //创建请求对象
+            //一次只能批量删20个
+            String str = StringUtils.join(videoIdList.toArray(), ",");
+            DeleteVideoRequest request = new DeleteVideoRequest();
+            request.setVideoIds(str);
+            //获取响应
+            DeleteVideoResponse response = client.getAcsResponse(request);
+            System.out.print("RequestId = " + response.getRequestId() + "\n");
+        } catch (ClientException e) {
             throw new MyException(20001, "云端视频删除失败");
         }
     }

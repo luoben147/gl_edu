@@ -13,14 +13,42 @@ spring:
   jackson:
     time-zone:  GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
+
+  cloud:
+    nacos:
+      discovery:
+        #nacos注册中心服务地址
+        server-addr: 127.0.0.1:8848
+
+#开启熔断机制
+feign:
+  hystrix:
+    enabled: true
+#  client:
+#    default-config: my-config
+#    config:
+#      my-config :
+#        connectTimeout : 6000
+
+#设置hystrix超时时间 默认 1000ms
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 6000
+
 mybatis-plus:
   mapper-locations:
   - classpath:mapper/*Mapper.xml
   #configuration:
   #  log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  #控制台打印完整带参数SQL语句
 
+
 #设置日志级别
 #logging:
 #  level:
 #    root : info
+
 

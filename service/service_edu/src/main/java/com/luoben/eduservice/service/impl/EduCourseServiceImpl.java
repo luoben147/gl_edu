@@ -3,6 +3,7 @@ package com.luoben.eduservice.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.luoben.eduservice.client.OssClient;
 import com.luoben.eduservice.entity.EduCourse;
 import com.luoben.eduservice.entity.EduCourseDescription;
 import com.luoben.eduservice.mapper.EduCourseMapper;
@@ -38,6 +39,9 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     @Autowired
     private EduChapterService chapterService;
+
+    @Autowired
+    private OssClient ossClient;
 
     /**
      * 添加课程基本信息
@@ -169,15 +173,19 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     @Transactional
     @Override
     public boolean removeCourseById(String id) {
-        //删除小节
+        //删除小节 和视频
         videoService.removeVideoByCourseId(id);
         //删除章节
         chapterService.removeChapterByCourseId(id);
         //删除描述
         courseDescriptionService.removeById(id);
+        //删除封面 oss
+        EduCourse eduCourse = baseMapper.selectById(id);
+        String cover = eduCourse.getCover();
+        ossClient.deleteOssFile(cover);
+
         //删除课程
         Integer count = baseMapper.deleteById(id);
-
         return null != count && count > 0;
     }
 }

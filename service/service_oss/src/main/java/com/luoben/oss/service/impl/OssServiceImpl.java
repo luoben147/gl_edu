@@ -60,4 +60,35 @@ public class OssServiceImpl implements OssService {
             return null;
         }
     }
+
+    /**
+     * 删除文件
+     * @param objectName
+     */
+    @Override
+    public boolean deleteOssFile(String objectName) {
+        String endpoint = OssPropertiesUtils.END_POINT;
+        String accessKeyId = OssPropertiesUtils.KEY_ID;
+        String accessKeySecret = OssPropertiesUtils.KEY_SECRET;
+        String bucketName = OssPropertiesUtils.BUCKET_NAME;
+
+        try {
+            //"https://gl-edu.oss-cn-beijing.aliyuncs.com/2020/05/04/5236ad01e33c4796bdf750d7e3da2189dog2.jpg"
+            objectName=objectName.substring(objectName.lastIndexOf(endpoint)+endpoint.length()+1,objectName.length());
+            System.out.println(objectName);
+            OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+            boolean found = ossClient.doesObjectExist(bucketName, objectName);
+            System.out.println(found);
+            if(found){
+                ossClient.deleteObject(bucketName, objectName);
+            }
+            ossClient.shutdown();
+            return  true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 }

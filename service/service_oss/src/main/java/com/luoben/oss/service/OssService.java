@@ -9,4 +9,10 @@ public interface OssService {
      * @return
      */
     String uploadFileAvatar(MultipartFile file);
+
+    /**
+     * 删除文件
+     * @param objectName
+     */
+    boolean deleteOssFile(String objectName);
 }

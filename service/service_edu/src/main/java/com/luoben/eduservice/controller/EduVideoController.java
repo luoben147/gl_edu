@@ -70,7 +70,7 @@ public class EduVideoController {
     public R removeById(
             @ApiParam(name = "id", value = "课时ID", required = true)
             @PathVariable String id) {
-        boolean result = videoService.removeById(id);
+        boolean result = videoService.removeVideoById(id);
         if (result) {
             return R.ok();
         } else {
