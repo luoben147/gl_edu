@@ -8,20 +8,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <!--阿里云对象存储-->
+    <!--会员模块-->
 
-    <artifactId>service_oss</artifactId>
+    <artifactId>service_ucenter</artifactId>
 
-    <dependencies>
-        <!--阿里云oss依赖-->
-        <dependency>
-            <groupId>com.aliyun.oss</groupId>
-            <artifactId>aliyun-sdk-oss</artifactId>
-        </dependency>
-        <!-- 日期工具 -->
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-        </dependency>
-    </dependencies>
+
 </project>
