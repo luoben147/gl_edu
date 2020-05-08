@@ -50,6 +50,7 @@ public class UcenterMemberController {
     public R getLoginInfo(HttpServletRequest request) {
         //根据request 头里的token获取用户id
         String memberId = JwtUtils.getMemberIdByJwtToken(request);
+
         UcenterMember member = memberService.getById(memberId);
         return R.ok().data("userInfo", member);
 

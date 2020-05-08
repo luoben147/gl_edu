@@ -114,4 +114,13 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
         member.setAvatar("http://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eoj0hHXhgJNOTSOFsS4uZs8x1ConecaVOB8eIl115xmJZcT4oCicvia7wMEufibKtTLqiaJeanU2Lpg3w/132");
         this.save(member);
     }
+
+    @Override
+    public UcenterMember getByOpenid(String openid) {
+        QueryWrapper<UcenterMember> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("openid", openid);
+
+        UcenterMember member = baseMapper.selectOne(queryWrapper);
+        return member;
+    }
 }
