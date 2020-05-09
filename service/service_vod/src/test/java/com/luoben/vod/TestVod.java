@@ -24,7 +24,7 @@ class TestVod {
     @Test
     void test1() {
         //1.初始化
-        DefaultAcsClient client = InitObject.initVodClient("LTAI4G8LPFWcWYH7mBnZx1k2", "xuF4hAyNiIq6ZX9KRDZkv663p2YcGL");
+        DefaultAcsClient client = InitObject.initVodClient("", "");
 
         //2.创建获取视频地址的request和response
         GetPlayInfoRequest request = new GetPlayInfoRequest();
@@ -55,7 +55,7 @@ class TestVod {
     @Test
     void test2() {
         //初始化
-        DefaultAcsClient client = InitObject.initVodClient("LTAI4G8LPFWcWYH7mBnZx1k2", "xuF4hAyNiIq6ZX9KRDZkv663p2YcGL");
+        DefaultAcsClient client = InitObject.initVodClient("", "");
 
         GetVideoPlayAuthRequest request = new GetVideoPlayAuthRequest();
         GetVideoPlayAuthResponse response = new GetVideoPlayAuthResponse();
@@ -77,8 +77,8 @@ class TestVod {
     //官方文档示例代码
     @Test
     void test3(){
-        String accessKeyId="LTAI4G8LPFWcWYH7mBnZx1k2";
-        String accessKeySecret="xuF4hAyNiIq6ZX9KRDZkv663p2YcGL";
+        String accessKeyId="";
+        String accessKeySecret="";
 
         //设置上传之后的 阿里云里显示的文件名称
         String title="6 - What If I Want to Move Faster - upload by sdk";
