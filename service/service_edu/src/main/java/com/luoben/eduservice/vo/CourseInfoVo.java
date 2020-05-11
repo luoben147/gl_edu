@@ -7,6 +7,9 @@ import lombok.Data;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+/**
+ * 后台管理的课程对象
+ */
 @ApiModel(value = "课程基本信息", description = "编辑课程基本信息的表单对象")
 @Data
 public class CourseInfoVo implements Serializable {

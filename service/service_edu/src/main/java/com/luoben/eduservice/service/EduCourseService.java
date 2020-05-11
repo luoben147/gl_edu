@@ -3,8 +3,13 @@ package com.luoben.eduservice.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.luoben.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.luoben.eduservice.vo.CourseApiQueryVo;
 import com.luoben.eduservice.vo.CourseInfoVo;
 import com.luoben.eduservice.vo.CoursePublishVo;
+import com.luoben.eduservice.vo.CourseWebVo;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -61,4 +66,26 @@ public interface EduCourseService extends IService<EduCourse> {
      * @return
      */
     boolean removeCourseById(String id);
+
+    /**
+     * 根据讲师id查询课程
+     * @param id
+     * @return
+     */
+    List<EduCourse> selectByTeacherId(String id);
+
+    /**
+     * 条件查询课程
+     * @param pageParam
+     * @param courseQuery
+     * @return
+     */
+    Map<String,Object> pageListWeb(Page<EduCourse> pageParam, CourseApiQueryVo courseQuery);
+
+    /**
+     * 根据课程id查询 课程信息
+     * @param courseId
+     * @return
+     */
+    CourseWebVo selectInfoWebById(String courseId);
 }

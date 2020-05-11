@@ -1,7 +1,13 @@
 package com.luoben.vod.controller;
 
+import com.aliyuncs.DefaultAcsClient;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
 import com.luoben.commonutils.R;
+import com.luoben.servicebase.exceptionhandler.MyException;
 import com.luoben.vod.service.VodService;
+import com.luoben.vod.utils.InitVodClient;
+import com.luoben.vod.utils.VodPropertiesUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -57,4 +63,31 @@ public class VodController {
         vodService.removeVideoList(videoIdList);
         return R.ok().message("视频删除成功");
     }
+
+    /**
+     * 根据视频id获取视频凭证
+     */
+    @ApiOperation(value = "根据视频id获取视频凭证")
+    @GetMapping("getPlayAuth/{id}")
+    public R getPlayAuth(@PathVariable String id){
+
+        try {
+            //初始化
+            DefaultAcsClient client = InitVodClient.initVodClient(VodPropertiesUtils.ACCESS_KEY_ID, VodPropertiesUtils.ACCESS_KEY_SECRET);
+
+            GetVideoPlayAuthRequest request = new GetVideoPlayAuthRequest();
+            GetVideoPlayAuthResponse response = new GetVideoPlayAuthResponse();
+
+            request.setVideoId(id);
+            response = client.getAcsResponse(request);
+            //播放凭证
+            String playAuth=response.getPlayAuth();
+            //返回结果
+            return R.ok().message("获取凭证成功").data("playAuth", playAuth);
+        } catch (Exception e) {
+           throw new MyException(20001,"获取凭证失败");
+        }
+
+    }
+
 }

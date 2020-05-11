@@ -1,8 +1,9 @@
 package com.luoben.eduservice.mapper;
 
-import com.luoben.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.luoben.eduservice.entity.EduCourse;
 import com.luoben.eduservice.vo.CoursePublishVo;
+import com.luoben.eduservice.vo.CourseWebVo;
 
 /**
  * <p>
@@ -15,4 +16,6 @@ import com.luoben.eduservice.vo.CoursePublishVo;
 public interface EduCourseMapper extends BaseMapper<EduCourse> {
 
     public CoursePublishVo getPublishCourseInfo(String courseId);
+
+    public CourseWebVo selectInfoWebById(String courseId);
 }
