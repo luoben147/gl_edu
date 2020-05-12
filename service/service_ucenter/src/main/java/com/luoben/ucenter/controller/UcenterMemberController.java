@@ -3,12 +3,14 @@ package com.luoben.ucenter.controller;
 
 import com.luoben.commonutils.JwtUtils;
 import com.luoben.commonutils.R;
+import com.luoben.commonutils.vo.UcenterMemberVo;
 import com.luoben.ucenter.entity.UcenterMember;
 import com.luoben.ucenter.service.UcenterMemberService;
 import com.luoben.ucenter.vo.LoginVo;
 import com.luoben.ucenter.vo.RegisterVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,7 +55,17 @@ public class UcenterMemberController {
 
         UcenterMember member = memberService.getById(memberId);
         return R.ok().data("userInfo", member);
-
     }
+
+    @ApiOperation(value = "根据会员id获取登录信息")
+    @GetMapping("getInfoUc/{id}")
+    public UcenterMemberVo getMemberInfo(@PathVariable String id) {
+        //根据用户id获取用户信息
+        UcenterMember ucenterMember = memberService.getById(id);
+        UcenterMemberVo memberVo=new UcenterMemberVo();
+        BeanUtils.copyProperties(ucenterMember,memberVo);
+        return memberVo;
+    }
+
 }
 
