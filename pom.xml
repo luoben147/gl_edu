@@ -20,6 +20,8 @@
     <modules>
         <module>service</module>
         <module>common</module>
+        <module>canal_client</module>
+        <module>infrastructure</module>
     </modules>
 
 

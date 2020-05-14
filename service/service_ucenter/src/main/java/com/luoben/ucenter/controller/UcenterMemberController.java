@@ -27,7 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 @Api(description = "会员登陆注册")
 @RestController
 @RequestMapping("/ucenterservice/member")
-@CrossOrigin
 public class UcenterMemberController {
 
     @Autowired
@@ -65,6 +64,17 @@ public class UcenterMemberController {
         UcenterMemberVo memberVo=new UcenterMemberVo();
         BeanUtils.copyProperties(ucenterMember,memberVo);
         return memberVo;
+    }
+
+    /**
+     * 统计某一天的注册人数
+     * @param day
+     * @return
+     */
+    @GetMapping(value = "countregister/{day}")
+    public R registerCount(@PathVariable String day){
+        Integer count = memberService.countRegisterByDay(day);
+        return R.ok().data("countRegister", count);
     }
 
 }

@@ -22,7 +22,7 @@ public class SwaggerConfig {
                 .groupName("webApi")
                 .apiInfo(webApiInfo())
                 .select()
-                .paths(Predicates.not(PathSelectors.regex("/admin/.*")))//配置路径中包含 admin的文档不显示
+                //.paths(Predicates.not(PathSelectors.regex("/admin/.*")))//配置路径中包含 admin的文档不显示
                 .paths(Predicates.not(PathSelectors.regex("/error.*")))
                 .build();
 
