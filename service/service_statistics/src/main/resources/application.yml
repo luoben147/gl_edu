@@ -1,30 +1,30 @@
-server:
-  port: 8008
-spring:
-  application:
-    name: service_statistics
-  profiles:
-    active: dev
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/guli_cms?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&allowMultiQueries=true
-    username: root
-    password: 123456
-  jackson:
-    time-zone:  GMT+8
-    date-format: yyyy-MM-dd HH:mm:ss
-  cloud:
-    nacos:
-      discovery:
-        #nacos注册中心服务地址
-        server-addr: 127.0.0.1:8848
-
-mybatis-plus:
-  mapper-locations:
-  - classpath:mapper/*Mapper.xml
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  #控制台打印完整带参数SQL语句
-
+#server:
+#  port: 8008
+#spring:
+#  application:
+#    name: service-statistics
+##  profiles:
+##    active: dev
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/guli_cms?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&allowMultiQueries=true
+#    username: root
+#    password: 123456
+#  jackson:
+#    time-zone:  GMT+8
+#    date-format: yyyy-MM-dd HH:mm:ss
+#  cloud:
+#    nacos:
+#      discovery:
+#        #nacos注册中心服务地址
+#        server-addr: 127.0.0.1:8848
+#
+#mybatis-plus:
+#  mapper-locations:
+#  - classpath:mapper/*Mapper.xml
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  #控制台打印完整带参数SQL语句
+#
 
 #开启熔断机制
 #feign:
