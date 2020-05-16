@@ -51,6 +51,11 @@ spring:
         uri: lb://service-order
         predicates:
         - Path=/orderservice/** # 路径匹配
+      #配置service-cms服务
+      - id: service-cms
+        uri: lb://service-cms
+        predicates:
+        - Path=/educms/** # 路径匹配
     nacos:
       discovery:
         # nacos注册中心服务地址
